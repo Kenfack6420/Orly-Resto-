@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commande</title>
+    <style>
+         /* Importer la police Lobster */
+         @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+
+        body {
+            font-family: 'Lobster', cursive; /* Appliquer la police Lobster */
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: black;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .form-container {
+            max-width: 400px;
+            margin: 30px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: white;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .form-container input,
+        .form-container textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .submit-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .submit-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Passer votre Commande</h1>
+</header>
+
+<div class="form-container">
+    <form id="orderForm">
+        <input type="text" id="name" placeholder="Votre Nom" required>
+        <input type="text" id="menu" placeholder="Choix du Menu" value="Spaghetti Bolognes - 2500 FCFA" readonly>
+        <input type="text" id="country" placeholder="Pays" required>
+        <input type="text" id="city" placeholder="Ville" required>
+        <input type="text" id="district" placeholder="Quartier" required>
+        <textarea id="comment" placeholder="Laissez votre commentaire..." rows="4"></textarea>
+        <a href="https://wa.me/+237696492029?" class="submit-button">Envoyer la Commande</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById('orderForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Empêche le rechargement de la page
+
+        const name = document.getElementById('name').value;
+        const plat = document.getElementById('menu').value; // Le menu prérempli
+        const prix = plat.split('-')[1].trim(); // Extraire le prix du menu
+        const country = document.getElementById('country').value;
+        const city = document.getElementById('city').value;
+        const district = document.getElementById('district').value;
+        const comment = document.getElementById('comment').value;
+
+        // Construire le message
+        const message = 'Nouvelle Commande:\n' +
+                        'Nom: ${name}\n' +
+                        'Menu: ${plat}\n' +
+                        'Prix: ${prix} FCFA\n' +
+                        'Pays: ${country}\n' +
+                        'Ville: ${city}\n' +
+                        'Quartier: ${district}\n' +
+                        'Commentaire: ${comment}';
+
+        const whatsappUrl = 'https://wa.me/+237696492029?text=${encodeURIComponent(message)}'; // Remplacez par votre numéro
+
+        // Rediriger vers WhatsApp
+        window.location.href = whatsappUrl;
+    });
+</script>
+
+</body>
+</html>
